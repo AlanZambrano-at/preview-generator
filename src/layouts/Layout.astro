@@ -33,6 +33,7 @@ const { title } = Astro.props;
 						Preview Link Generator
 					</h2>
 				</div>
+				<slot />
 				<div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 					<div
 						class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10"
@@ -174,19 +175,6 @@ const { title } = Astro.props;
 	const previewLinkOutputDiv = document.getElementById(
 		"previewLinkOutputDiv"
 	);
-
-	if (
-		[
-			previewLinkInput,
-			resultsInput,
-			submitBtn,
-			copyOutputBtn,
-			previewLinkOutputDiv,
-		].some((c) => c === null)
-	) {
-		console.log("Cant continue!!");
-		// return;
-	}
 
 	// don't display previewLinkOutputDiv at the beginning
 	previewLinkOutputDiv.style.display = "none";
