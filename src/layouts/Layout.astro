@@ -158,13 +158,17 @@ const { title } = Astro.props;
 		"/api/enter-preview/?secret=jtagbutzuvxuxr4sswz3hsv5b8g39u6f&slug=";
 
 	function getUrl(link) {
+		const envInput = document.getElementById("environment");
+		const environmentName =  envInput.value ?? "";
+		const environmentSlug = environmentName === '' ? '' : `&env=${environmentName}`;
+
 		const url = new URL(link);
 		const { host } = url;
 		const pathname = link
 			.replace(host, "")
 			.replace("https://", "")
 			.replace("http://", "");
-		return `${host}${secret}${pathname || "/"}`;
+		return `${host}${secret}${pathname || "/"}${environmentSlug}`;
 	}
 
 	// selectors
