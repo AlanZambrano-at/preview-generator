@@ -15,20 +15,25 @@ type EnvironmentEntry = {
  * @returns An array of environment ids.
  */
 export const getContentfulEnvs = async () => {
-  const response = await fetch(
-    `https://api.contentful.com/spaces/${
-      import.meta.env.CONTENTFUL_SPACE_ID
-    }/environments?access_token=${import.meta.env.CONTENTFUL_APP_SECRET}`,
-    {
-      headers: {
-        Authentication: `Bearer ${import.meta.env.CONTENTFUL_APP_SECRET}`,
-      },
-    }
-  );
-  const data = await response.json();
-  const environmentIds: string[] = data.items.map(
-    (entry: EnvironmentEntry) => entry.sys.id
-  );
-
-  return environmentIds;
+  try {
+    const response = await fetch(
+      `https://api.contentful.com/spaces/${
+        import.meta.env.CONTENTFUL_SPACE_ID
+      }/environments?access_token=${import.meta.env.CONTENTFUL_APP_SECRET}`,
+      {
+        headers: {
+          Authentication: `Bearer ${import.meta.env.CONTENTFUL_APP_SECRET}`,
+        },
+      }
+    );
+    const data = await response.json();
+    const environmentIds: string[] = data.items.map(
+      (entry: EnvironmentEntry) => entry.sys.id
+    );
+  
+    return environmentIds;
+  } catch (err) {
+    // TODO: Log error somewhere
+    return [];
+  }
 };
